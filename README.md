@@ -1,9 +1,8 @@
-# GpxApp
+# GpxProcessor
 
 This project contains a set of tools to parse GPX data, calculate statistics and render an HTML report.
 
 
-## Getting Started
 ### Environment Setup
 ```
 # Clone repo
@@ -65,7 +64,7 @@ Generated HTML page: html/index.html
 ```
 
 ### HTML Render Only
-The example below contains output from an HTML render only execution:
+The example below contains output from an HTML render only execution and assumes the HikeDB database already exists.
 ```
 (GpxProcessor)$ python process.py --render_only
 Generated HTML page: html/index.html
@@ -77,7 +76,7 @@ v0.1 - Initial Release
 
 ## Authors
 
-* **Brian Ervin** - *Initial work* - [ervbrian](https://github.com/ervbrian)
+**Brian Ervin** - *Initial work* - [ervbrian](https://github.com/ervbrian)
 
 ## License
 
