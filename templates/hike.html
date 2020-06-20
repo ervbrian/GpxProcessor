@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="../templates/styles.css">
+        <title>Hiking Statistics</title>
+    </head>
+    <body>
+        <h1>GPX Parsing Report</h1>
+        <table class="darkTable">
+          <tr>
+            <th>Elevation Plot</th>
+            <th>Hike Details</th>
+          </tr>
+        {% for hike in hikes %}
+          <tr>
+            <td><img src="../images/{{hike.name}}.png"></td>
+            <td>
+                <table class="blackTable">
+                    <tr>
+                        <td>Name:</td>
+                        <td>{{ hike.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Distance:</td>
+                        <td>{{ hike.distance }} kilometers</td>
+                    </tr>
+                    <tr>
+                        <td>Ascent:</td>
+                        <td>{{ hike.ascent }} meters</td>
+                    <tr>
+                        <td>Descent:</td>
+                        <td>{{ hike.descent }} meters</td>
+                    </tr>
+                    <tr>
+                        <td>Duration:</td>
+                        <td>{{ hike.duration }} minutes</td>
+                    </tr>
+                    <tr>
+                        <td>Average Speed:</td>
+                        <td>{{ hike.speed }} kilometers/hour</td>
+                    </tr>
+                </table>
+            </td>
+          </tr>
+        {% endfor %}
+        </table>
+    </body>
+</html>
