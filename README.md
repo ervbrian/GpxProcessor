@@ -3,9 +3,26 @@
 This project contains a set of tools to parse GPX data, calculate statistics and render an HTML report.
 
 
+## Getting Started
+### Environment Setup
+```
+# Clone repo
+git clone <url>/GpxProcessor
+cd GpxProcessor
+
+# Setup virtual environment
+virtualenv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Create data directories
+mkdir images
+mkdir data
+```
+
 ## Execution
 ```
-186590d2efe7:GpxApp ervbrian$ python3 process.py -h
+(GpxProcessor)$ python process.py -h
 usage: process.py [-h] [-p PATH] [-r]
 
 optional arguments:
@@ -16,7 +33,7 @@ optional arguments:
 
 ### Populated:
 ```
-186590d2efe7:GpxApp ervbrian$ python3 process.py -p ./
+(GpxProcessor)$ python process.py -p ./
 Found 15 GPX files in path...
 Processing 0 files after removing hikes already populated in HikeDB
 Total hikes stored in HikeDB database: 15
@@ -25,7 +42,7 @@ Generated HTML page: html/index.html
 
 ### Unpopulated:
 ```
-186590d2efe7:GpxApp ervbrian$ python3 process.py -p ./
+(GpxProcessor)$ python process.py -p ./
 Found 15 GPX files in path...
 Processing 15 files after removing hikes already populated in HikeDB
 Processing 20170723_Lake_Valhalla_Janus_1.GPX...
@@ -50,7 +67,7 @@ Generated HTML page: html/index.html
 ### HTML Render Only
 The example below contains output from an HTML render only execution:
 ```
-186590d2efe7:GpxApp ervbrian$ python3 process.py --render_only
+(GpxProcessor)$ python process.py --render_only
 Generated HTML page: html/index.html
 ```
 
