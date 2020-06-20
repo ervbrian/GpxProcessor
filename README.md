@@ -6,7 +6,7 @@ This project contains a set of tools to parse GPX data, calculate statistics and
 ### Environment Setup
 ```
 # Clone repo
-git clone <url>/GpxProcessor
+git clone https://github.com/ervbrian/GpxProcessor
 cd GpxProcessor
 
 # Setup virtual environment
