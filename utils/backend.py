@@ -2,7 +2,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.orm import sessionmaker
 
-database = "sqlite:////Users/ervbrian/Documents/Personal_Files/GpxProcessor/data/HikeDB.db"
+database = "sqlite:///data/HikeDB.db"
 Base = declarative_base()
 engine = create_engine(database, echo=False)
 Session = sessionmaker(bind=engine)
