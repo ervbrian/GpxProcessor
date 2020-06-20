@@ -2,7 +2,6 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.orm import sessionmaker
 
-
 database = "sqlite:////Users/ervbrian/Documents/Personal_Files/GpxProcessor/data/HikeDB.db"
 Base = declarative_base()
 engine = create_engine(database, echo=False)
@@ -42,7 +41,7 @@ class HikeDB(Base):
     speed = Column(Float)
 
 
-class HikeDBClient():
+class HikeDBClient:
     """ Wrapper used to populate HikeDB tables.
     Tables are used to generate HTML report on hike statistics.
     """

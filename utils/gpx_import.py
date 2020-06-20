@@ -22,18 +22,19 @@ class GpxImport:
     """
 
     def __init__(self, filename):
-        self.tree = self._parse_gpx_file(filename)
+        self.tree = self.import_gpx(filename)
         self.name = os.path.basename(filename)
         self.coordinates = self._populate_coordinates()
 
-    def _parse_gpx_file(self, filename):
+    @staticmethod
+    def import_gpx(filename):
         return ET.parse(filename)
 
     def _populate_coordinates(self):
         """
-        Walk XML tree and fetch coordinate details logged as trkpt elements.
-        Create Point object for each coordinate and append to coordinates list.
-        """
+                Walk XML tree and fetch coordinate details logged as trkpt elements.
+                Create Point object for each coordinate and append to coordinates list.
+                """
         points = []
         for trk in self.tree.findall(TRK_ELEMENT):
             for trkseg in trk.findall(TRKSEG_ELEMENT):

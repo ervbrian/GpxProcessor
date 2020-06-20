@@ -6,9 +6,9 @@ import os
 def render_html(hikes):
     """ Given a list of hikes, render an HTML report based on Jinja templates
 
-    :param hikes: list of HikeDB objects
-    :return: None
-    """
+        :param hikes: list of HikeDB objects
+        :return: None
+        """
 
     templates_dir = "templates"
     env = Environment(loader=FileSystemLoader(templates_dir))

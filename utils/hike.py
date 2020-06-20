@@ -36,7 +36,7 @@ class Segment:
         start = self.points[0].time.replace("Z", "+00:00")
         end = self.points[-1].time.replace("Z", "+00:00")
         elapsed = datetime.fromisoformat(end) - datetime.fromisoformat(start)
-        return round(elapsed.seconds / 60) # convert to minutes
+        return round(elapsed.seconds / 60)  # convert to minutes
 
     @cached_property
     def speed(self):
