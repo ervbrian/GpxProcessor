@@ -133,3 +133,20 @@ class Hike:
         plt.ylabel("Elevation(m)")
         plt.style.use(['dark_background'])
         plt.savefig(f"images/{self.name}.png")
+        plt.close()
+
+    def plot_coordinates(self):
+        """ Generate a plot graph of latitude and longitude coordinates
+        :return: None
+        """
+
+        fig, ax = plt.subplots(1)
+        for segment in self.segments:
+            ax.plot([point.lon for point in segment.points],
+                    [point.lat for point in segment.points])
+        plt.title(self.name)
+        plt.xlabel("Longitude")
+        plt.ylabel("Latitude")
+        plt.style.use(['dark_background'])
+        plt.savefig(f"images/{self.name}_coordinates.png")
+        plt.close()

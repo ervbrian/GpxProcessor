@@ -8,11 +8,13 @@
         <table class="darkTable">
           <tr>
             <th>Elevation Plot</th>
+            <th>Coordinate Plot</th>
             <th>Hike Details</th>
           </tr>
         {% for hike in hikes %}
           <tr>
             <td><img src="../images/{{hike.name}}.png"></td>
+            <td><img src="../images/{{hike.name}}_coordinates.png"></td>
             <td>
                 <table class="blackTable">
                     <tr>

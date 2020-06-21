@@ -36,6 +36,7 @@ def main():
         print("Generating plot graphs")
         for hike in hike_list:
             hike.plot_elevation()
+            hike.plot_coordinates()
 
         print("Populating database")
         update_db(client=client, hikes=hike_list)
