@@ -32,9 +32,9 @@ class GpxImport:
 
     def _populate_coordinates(self):
         """
-                Walk XML tree and fetch coordinate details logged as trkpt elements.
-                Create Point object for each coordinate and append to coordinates list.
-                """
+        Walk XML tree and fetch coordinate details logged as trkpt elements.
+        Create Point object for each coordinate and append to coordinates list.
+        """
         points = []
         for trk in self.tree.findall(TRK_ELEMENT):
             for trkseg in trk.findall(TRKSEG_ELEMENT):
