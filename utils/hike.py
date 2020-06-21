@@ -115,10 +115,6 @@ class Hike:
     def speed(self):
         return sum([segment.speed for segment in self.segments]) / self.segment_count
 
-    @cached_property
-    def stats(self):
-        return f"{self.name}\n {self.distance}\n {self.ascent}\n {self.descent}"
-
     def plot_elevation(self):
         """ Generate a plot graph of elevation vs distance travelled
         :return: None
