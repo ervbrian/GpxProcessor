@@ -45,10 +45,6 @@ def test_hike_distance_calculation(hike):
     assert hike.distance == 10.02
 
 
-def test_segment_speed_calculation(segment):
-    assert segment.speed == 2
-
-
 def test_hike_elevation_calculation(hike):
     assert hike.ascent == 2500
     assert hike.descent == 0
