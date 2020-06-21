@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+
 from cached_property import cached_property
 from datetime import datetime
 from math import sin, cos, sqrt, radians, asin
@@ -11,6 +13,7 @@ class Point:
         self.lat = lat
         self.lon = lon
         self.elevation = elevation
+        self.distance_from_start = 0
         self.time = time
 
 
@@ -75,6 +78,7 @@ class Segment:
         for i in range(self.point_count - 1):
             self._calc_distance_between_points(self.points[i], self.points[i+1])
             self._calc_elevation_change_between_points(self.points[i], self.points[i+1])
+            self.points[i].distance_from_start = self.distance
 
 
 class Hike:
@@ -114,3 +118,18 @@ class Hike:
     @cached_property
     def stats(self):
         return f"{self.name}\n {self.distance}\n {self.ascent}\n {self.descent}"
+
+    def plot_elevation(self):
+        """ Generate a plot graph of elevation vs distance travelled
+        :return: None
+        """
+
+        fig, ax = plt.subplots(1)
+        for segment in self.segments:
+            ax.plot([point.distance_from_start for point in segment.points[:-1]],
+                    [point.elevation for point in segment.points[:-1]])
+        plt.title(self.name)
+        plt.xlabel("Distance(km)")
+        plt.ylabel("Elevation(m)")
+        plt.style.use(['dark_background'])
+        plt.savefig(f"images/{self.name}.png")

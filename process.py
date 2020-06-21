@@ -3,7 +3,7 @@ import os
 
 from utils.backend import HikeDBClient, update_db
 from utils.gpx_import import GpxImport
-from utils.report import render_html, plot_elevation
+from utils.report import render_html
 
 
 GPX = "GPX"
@@ -32,7 +32,12 @@ def main():
             print(f"Processing {filename}")
             processed_gpx = GpxImport(filename=os.path.join(args.path, filename))
             hike_list.append(processed_gpx.hike)
-            plot_elevation(filename=f"{processed_gpx.name}.png", coordinates=processed_gpx.coordinates)
+
+        print("Generating plot graphs")
+        for hike in hike_list:
+            hike.plot_elevation()
+
+        print("Populating database")
         update_db(client=client, hikes=hike_list)
         print(f"Total hikes stored in HikeDB database: {client.entry_count}")
 
