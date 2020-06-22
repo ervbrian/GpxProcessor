@@ -27,6 +27,7 @@ class Segment:
         self.distance = 0
         self.ascent = 0
         self.descent = 0
+        self.ascent_rates = []
         self._calc_statistics()
 
     @cached_property
@@ -44,6 +45,11 @@ class Segment:
     @cached_property
     def speed(self):
         return round(self.distance / self.duration * 60, 2)
+
+    @cached_property
+    def ascent_rate(self):
+        average_rate = sum(self.ascent_rates) / len(self.ascent_rates) * 3600  # Convert to meters per hour
+        return round(average_rate, 2)
 
     def _calc_distance_between_points(self, point_a, point_b):
         # https://www.geeksforgeeks.org/program-distance-two-points-earth/
@@ -66,13 +72,24 @@ class Segment:
         # add result to distance
         self.distance += (c * r)
 
+    def _calc_ascent_rate_between_points(self, point_a, point_b, elevation_delta):
+        start = point_a.time.replace("Z", "+00:00")
+        end = point_b.time.replace("Z", "+00:00")
+        elapsed = datetime.fromisoformat(end) - datetime.fromisoformat(start)
+        average_rate = round(elevation_delta / elapsed.seconds, 2)
+
+        self.ascent_rates.append(average_rate)
+
     def _calc_elevation_change_between_points(self, point_a, point_b):
         if point_b.elevation == point_a.elevation:
             return
-        elif point_b.elevation > point_a.elevation:
-            self.ascent += point_b.elevation - point_a.elevation
+
+        elevation_delta = point_b.elevation - point_a.elevation
+        if point_b.elevation > point_a.elevation:
+            self.ascent += elevation_delta
+            self._calc_ascent_rate_between_points(point_a, point_b, elevation_delta)
         else:
-            self.descent += point_b.elevation - point_a.elevation
+            self.descent += elevation_delta
 
     def _calc_statistics(self):
         for i in range(self.point_count - 1):
@@ -114,6 +131,11 @@ class Hike:
     @cached_property
     def speed(self):
         return sum([segment.speed for segment in self.segments]) / self.segment_count
+
+    @cached_property
+    def ascent_rate(self):
+        average_rate = sum([segment.ascent_rate for segment in self.segments]) / self.segment_count
+        return round(average_rate, 2)
 
     def plot_elevation(self):
         """ Generate a plot graph of elevation vs distance travelled

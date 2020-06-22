@@ -41,6 +41,10 @@ def test_segment_duration_calculation(segment):
     assert segment.duration == 60
 
 
+def test_segment_ascent_rate_calculation(segment):
+    assert segment.ascent_rate == 504
+
+
 def test_hike_distance_calculation(hike):
     assert hike.distance == 10.02
 
@@ -52,3 +56,7 @@ def test_hike_elevation_calculation(hike):
 
 def test_hike_duration_calculation(hike):
     assert hike.duration == 300
+
+
+def test_hike_ascent_rate_calculation(hike):
+    assert hike.ascent_rate == 504
