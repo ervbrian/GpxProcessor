@@ -47,7 +47,7 @@ class Segment:
 
     @cached_property
     def ascent_rate(self):
-        average_rate = sum(self.ascent_rates) / len(self.ascent_rates) * 3600  # Convert to meters per hour
+        average_rate = sum(self.ascent_rates) / len(self.ascent_rates)
         return round(average_rate, 2)
 
     def _calc_distance_between_points(self, point_a, point_b):
@@ -75,9 +75,9 @@ class Segment:
         start = point_a.time
         end = point_b.time
         elapsed = datetime.fromisoformat(end) - datetime.fromisoformat(start)
-        average_rate = round(elevation_delta / elapsed.seconds, 2)
+        rate = elevation_delta / elapsed.seconds * 3600
 
-        self.ascent_rates.append(average_rate)
+        self.ascent_rates.append(rate)
 
     def _calc_elevation_change_between_points(self, point_a, point_b):
         if point_b.elevation == point_a.elevation:
