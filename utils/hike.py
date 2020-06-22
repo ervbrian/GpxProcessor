@@ -9,12 +9,12 @@ class Point:
     """ Class used to store coordinate point details
     """
 
-    def __init__(self, lat, lon, elevation=0, time=0):
+    def __init__(self, lat, lon, elevation, time):
         self.lat = lat
         self.lon = lon
         self.elevation = elevation
-        self.distance_from_start = 0
         self.time = time
+        self.distance_from_start = 0  # populated by Segment._calc_statistics method
 
 
 class Segment:
