@@ -42,7 +42,7 @@ class GpxImport:
                     lat = float(trkpt.attrib.get(LAT))
                     lon = float(trkpt.attrib.get(LON))
                     elevation = float(trkpt.find(ELE_ELEMENT).text)
-                    time = trkpt.find(TIME_ELEMENT).text
+                    time = trkpt.find(TIME_ELEMENT).text.replace("Z", "+00:00")
                     points.append(Point(lat=lat, lon=lon, elevation=elevation, time=time))
 
         return points

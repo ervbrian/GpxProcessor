@@ -36,9 +36,8 @@ class Segment:
 
     @cached_property
     def duration(self):
-        # TODO Update to support all timezones
-        start = self.points[0].time.replace("Z", "+00:00")
-        end = self.points[-1].time.replace("Z", "+00:00")
+        start = self.points[0].time
+        end = self.points[-1].time
         elapsed = datetime.fromisoformat(end) - datetime.fromisoformat(start)
         return round(elapsed.seconds / 60)  # convert to minutes
 
@@ -73,8 +72,8 @@ class Segment:
         self.distance += (c * r)
 
     def _calc_ascent_rate_between_points(self, point_a, point_b, elevation_delta):
-        start = point_a.time.replace("Z", "+00:00")
-        end = point_b.time.replace("Z", "+00:00")
+        start = point_a.time
+        end = point_b.time
         elapsed = datetime.fromisoformat(end) - datetime.fromisoformat(start)
         average_rate = round(elevation_delta / elapsed.seconds, 2)
 

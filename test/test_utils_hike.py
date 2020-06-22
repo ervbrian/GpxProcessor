@@ -8,12 +8,12 @@ def segment():
     point1 = Point(lat=53.32055555555556,
                    lon=-1.7297222222222221,
                    elevation=0,
-                   time="2017-06-25T14:17:48Z")
+                   time="2017-06-25T14:17:48+00:00")
 
     point2 = Point(lat=53.31861111111111,
                    lon=-1.6997222222222223,
                    elevation=500,
-                   time="2017-06-25T15:17:48Z")
+                   time="2017-06-25T15:17:48+00:00")
 
     return Segment(points=[point1, point2])
 
