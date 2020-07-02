@@ -1,5 +1,3 @@
-import matplotlib.pyplot as plt
-
 from cached_property import cached_property
 from datetime import datetime
 from math import sin, cos, sqrt, radians, asin
@@ -136,34 +134,3 @@ class Hike:
         average_rate = sum([segment.ascent_rate for segment in self.segments]) / self.segment_count
         return round(average_rate, 2)
 
-    def plot_elevation(self):
-        """ Generate a plot graph of elevation vs distance travelled
-        :return: None
-        """
-
-        fig, ax = plt.subplots(1)
-        for segment in self.segments:
-            ax.plot([point.distance_from_start for point in segment.points[:-1]],
-                    [point.elevation for point in segment.points[:-1]])
-        plt.title(self.name)
-        plt.xlabel("Distance(km)")
-        plt.ylabel("Elevation(m)")
-        plt.style.use(['dark_background'])
-        plt.savefig(f"images/{self.name}.png")
-        plt.close()
-
-    def plot_coordinates(self):
-        """ Generate a plot graph of latitude and longitude coordinates
-        :return: None
-        """
-
-        fig, ax = plt.subplots(1)
-        for segment in self.segments:
-            ax.plot([point.lon for point in segment.points],
-                    [point.lat for point in segment.points])
-        plt.title(self.name)
-        plt.xlabel("Longitude")
-        plt.ylabel("Latitude")
-        plt.style.use(['dark_background'])
-        plt.savefig(f"images/{self.name}_coordinates.png")
-        plt.close()

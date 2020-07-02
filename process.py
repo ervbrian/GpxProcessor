@@ -1,8 +1,10 @@
 import argparse
 import os
+from multiprocessing.pool import ThreadPool
 
 from utils.backend import HikeDBClient, update_db
 from utils.gpx_import import GpxImport
+from utils.plotting import plot_elevation, plot_coordinates
 from utils.report import render_html
 
 
@@ -35,8 +37,8 @@ def main():
 
         print("Generating plot graphs")
         for hike in hike_list:
-            hike.plot_elevation()
-            hike.plot_coordinates()
+            plot_elevation(hike)
+            plot_coordinates(hike)
 
         print("Populating database")
         update_db(client=client, hikes=hike_list)
