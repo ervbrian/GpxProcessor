@@ -12,7 +12,10 @@ class Point:
         self.lon = lon
         self.elevation = elevation
         self.time = time
-        self.distance_from_start = 0  # populated by Segment._calc_statistics method
+        self.distance_from_start = 0
+
+    def update_distance_from_start(self, distance):
+        self.distance_from_start = distance
 
 
 class Segment:
@@ -90,9 +93,9 @@ class Segment:
 
     def _calc_statistics(self):
         for i in range(self.point_count - 1):
+            self.points[i].update_distance_from_start(self.distance)
             self._calc_distance_between_points(self.points[i], self.points[i+1])
             self._calc_elevation_change_between_points(self.points[i], self.points[i+1])
-            self.points[i].distance_from_start = self.distance
 
 
 class Hike:
