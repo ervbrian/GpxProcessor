@@ -15,7 +15,12 @@ def segment():
                    elevation=500,
                    time="2017-06-25T15:17:48+00:00")
 
-    return Segment(points=[point1, point2])
+    point3 = Point(lat=53.41861111111111,
+                   lon=-1.6947222222222223,
+                   elevation=200,
+                   time="2017-06-25T15:34:48+00:00")
+
+    return Segment(points=[point1, point2, point3])
 
 
 @pytest.fixture(scope="module")
@@ -25,20 +30,20 @@ def hike(segment):
 
 
 def test_segment_distance_calculation(segment):
-    assert segment.distance == 2.0043678382716137
+    assert segment.distance == 13.12880768852734
 
 
 def test_segment_speed_calculation(segment):
-    assert segment.speed == 2.00
+    assert segment.speed == 10.23
 
 
 def test_segment_elevation_calculation(segment):
     assert segment.ascent == 500
-    assert segment.descent == 0
+    assert segment.descent == -300
 
 
 def test_segment_duration_calculation(segment):
-    assert segment.duration == 60
+    assert segment.duration == 77
 
 
 def test_segment_ascent_rate_calculation(segment):
@@ -46,16 +51,20 @@ def test_segment_ascent_rate_calculation(segment):
 
 
 def test_hike_distance_calculation(hike):
-    assert hike.distance == 10.02
+    assert hike.distance == 65.64
 
 
 def test_hike_elevation_calculation(hike):
     assert hike.ascent == 2500
-    assert hike.descent == 0
+    assert hike.descent == -1500
 
 
 def test_hike_duration_calculation(hike):
-    assert hike.duration == 300
+    assert hike.duration == 385
+
+
+def test_hike_speed_calculation(hike):
+    assert hike.speed == 10.23
 
 
 def test_hike_ascent_rate_calculation(hike):
