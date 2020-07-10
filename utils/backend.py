@@ -54,13 +54,13 @@ class HikeDBClient:
 
     @property
     def entry_count(self):
-        return self.show_all().count()
+        return self.show_all_hikes().count()
 
     def add_all(self, hike_list):
         self.session.add_all(hike_list)
         self.session.commit()
 
-    def show_all(self):
+    def show_all_hikes(self):
         return self.session.query(HikeDB).order_by(HikeDB.name.desc())
 
     def hike_populated(self, name):
