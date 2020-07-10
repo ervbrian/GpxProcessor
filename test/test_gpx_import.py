@@ -2,6 +2,7 @@ import pytest
 import os
 
 from utils.gpx_import import GpxImport
+from utils.exceptions import ParseError
 
 
 @pytest.fixture(scope="module")
@@ -21,5 +22,5 @@ def test_coordinates_count(imported_gpx):
 
 def test_invalid_file():
     filename = os.path.join("test", "data", "invalid.GPX")
-    with pytest.raises(Exception):
+    with pytest.raises(ParseError):
         GpxImport(filename=filename)

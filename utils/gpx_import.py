@@ -3,6 +3,7 @@ import xml.etree.ElementTree as ET
 
 from cached_property import cached_property
 
+from utils.exceptions import ParseError
 from utils.hike import Point, Segment, Hike
 
 GPX_NAMESPACE = "{http://www.topografix.com/GPX/1/1}"
@@ -28,7 +29,10 @@ class GpxImport:
 
     @staticmethod
     def import_gpx(filename):
-        return ET.parse(filename)
+        try:
+            return ET.parse(filename)
+        except Exception as e:
+            raise ParseError(f"GPX file {filename} could not be parsed. {e}")
 
     def _populate_coordinates(self):
         """
