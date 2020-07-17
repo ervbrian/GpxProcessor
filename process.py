@@ -4,7 +4,7 @@ from multiprocessing.pool import ThreadPool
 
 from utils.backend import HikeDBClient, update_db
 from utils.gpx_import import GpxImport
-from utils.plotting import plot_elevation, plot_coordinates
+from utils.plotting import plot_elevation, plot_coordinates, plot_heart_rate
 from utils.report import render_html
 
 
@@ -39,6 +39,7 @@ def main():
         for hike in hike_list:
             plot_elevation(hike)
             plot_coordinates(hike)
+            plot_heart_rate(hike)
 
         print("Populating database")
         update_db(client=client, hikes=hike_list)

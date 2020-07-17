@@ -24,7 +24,8 @@ def update_db(client, hikes):
                                descent=hike.descent,
                                duration=hike.duration,
                                speed=hike.speed,
-                               ascent_rate=hike.ascent_rate))
+                               ascent_rate=hike.ascent_rate,
+                               average_heart_rate=hike.average_heart_rate))
     client.add_all(obj_list)
 
 
@@ -41,6 +42,7 @@ class HikeDB(Base):
     duration = Column(String)
     speed = Column(Float)
     ascent_rate = Column(Float)
+    average_heart_rate = Column(Integer)
 
 
 class HikeDBClient:

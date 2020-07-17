@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 from jinja2 import Environment, FileSystemLoader
 import os
 
