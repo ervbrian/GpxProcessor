@@ -13,7 +13,6 @@ def plot_elevation(hike):
     plt.title(hike.name)
     plt.xlabel("Distance(km)")
     plt.ylabel("Elevation(m)")
-    # plt.style.use(['dark_background'])
     plt.savefig(f"images/{hike.name}.png")
     plt.close()
 
@@ -30,7 +29,6 @@ def plot_coordinates(hike):
     plt.title(hike.name)
     plt.xlabel("Longitude")
     plt.ylabel("Latitude")
-    # plt.style.use(['dark_background'])
     plt.savefig(f"images/{hike.name}_coordinates.png")
     plt.close()
 
@@ -46,6 +44,5 @@ def plot_heart_rate(hike):
     plt.title("Average Heart Rate")
     plt.xlabel("Coordinate Point")
     plt.ylabel("Beats per minute")
-    # plt.style.use(['dark_background'])
     plt.savefig(f"images/{hike.name}_heart_rate.png")
     plt.close()
