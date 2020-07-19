@@ -1,7 +1,9 @@
 import matplotlib.pyplot as plt
 
+from utils.hike import Hike
 
-def plot_elevation(hike):
+
+def plot_elevation(hike: Hike) -> None:
     """ Generate a plot graph of elevation vs distance travelled
     :return: None
     """
@@ -17,7 +19,7 @@ def plot_elevation(hike):
     plt.close()
 
 
-def plot_coordinates(hike):
+def plot_coordinates(hike: Hike) -> None:
     """ Generate a plot graph of latitude and longitude coordinates
     :return: None
     """
@@ -33,7 +35,7 @@ def plot_coordinates(hike):
     plt.close()
 
 
-def plot_heart_rate(hike):
+def plot_heart_rate(hike: Hike) -> None:
     """ Generate a plot graph of heart rate statistics
     :return: None
     """

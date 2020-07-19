@@ -1,6 +1,10 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.orm import sessionmaker
+from typing import List
+from sqlalchemy.orm.query import Query
+
+from utils.hike import Hike
 
 database = "sqlite:///data/HikeDB.db"
 Base = declarative_base()
@@ -8,7 +12,7 @@ engine = create_engine(database, echo=False)
 Session = sessionmaker(bind=engine)
 
 
-def update_db(client, hikes):
+def update_db(client, hikes: List[Hike]) -> None:
     """ Add a list of hike statistics to database
 
     :param client: HikeDBClient session object
@@ -58,15 +62,15 @@ class HikeDBClient:
     def entry_count(self):
         return self.show_all_hikes().count()
 
-    def add_all(self, hike_list):
+    def add_all(self, hike_list: List[HikeDB]):
         self.session.add_all(hike_list)
         self.session.commit()
 
-    def show_all_hikes(self):
+    def show_all_hikes(self) -> Query:
         return self.session.query(HikeDB).order_by(HikeDB.name.desc())
 
-    def hike_populated(self, name):
+    def hike_populated(self, name: str) -> bool:
         return self.session.query(HikeDB).filter_by(name=name).scalar() is not None
 
-    def filter_populated_hikes(self, file_list):
+    def filter_populated_hikes(self, file_list: List[str]) -> List[str]:
         return [filename for filename in file_list if not self.hike_populated(filename)]

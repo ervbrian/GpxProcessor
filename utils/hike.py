@@ -1,13 +1,14 @@
 from cached_property import cached_property
 from datetime import datetime
 from math import sin, cos, sqrt, radians, asin
+from typing import List
 
 
 class Point:
     """ Class used to store coordinate point details
     """
 
-    def __init__(self, lat, lon, elevation, time, heart_rate):
+    def __init__(self, lat: float, lon: float, elevation: float, time: str, heart_rate: int):
         self.lat = lat
         self.lon = lon
         self.elevation = elevation
@@ -15,7 +16,7 @@ class Point:
         self.distance_from_start = 0
         self.heart_rate = heart_rate
 
-    def update_distance_from_start(self, distance):
+    def update_distance_from_start(self, distance: float):
         self.distance_from_start = distance
 
 
@@ -24,7 +25,7 @@ class Segment:
     Distance, ascent, descent, duration and speed calculations are made here.
     """
 
-    def __init__(self, points):
+    def __init__(self, points: List[Point]):
         self.points = points
         self.distance = 0
         self.ascent = 0
@@ -61,7 +62,7 @@ class Segment:
 
         return round(average_rate)
 
-    def _calc_distance_between_points(self, point_a, point_b):
+    def _calc_distance_between_points(self, point_a: Point, point_b: Point) -> None:
         # https://www.geeksforgeeks.org/program-distance-two-points-earth/
         # radians converts from degrees to radians.
         lon1 = radians(point_a.lon)
@@ -82,7 +83,7 @@ class Segment:
         # add result to distance
         self.distance += (c * r)
 
-    def _calc_ascent_rate_between_points(self, point_a, point_b, elevation_delta):
+    def _calc_ascent_rate_between_points(self, point_a: Point, point_b: Point, elevation_delta: float) -> None:
         start = point_a.time
         end = point_b.time
         elapsed = datetime.fromisoformat(end) - datetime.fromisoformat(start)
@@ -90,7 +91,7 @@ class Segment:
 
         self.ascent_rates.append(rate)
 
-    def _calc_elevation_change_between_points(self, point_a, point_b):
+    def _calc_elevation_change_between_points(self, point_a: Point, point_b: Point) -> None:
         if point_b.elevation == point_a.elevation:
             return
 
@@ -101,7 +102,7 @@ class Segment:
         else:
             self.descent += elevation_delta
 
-    def _calc_statistics(self):
+    def _calc_statistics(self) -> None:
         for i in range(self.point_count - 1):
             self.points[i].update_distance_from_start(self.distance)
             self._calc_distance_between_points(self.points[i], self.points[i+1])
@@ -114,7 +115,7 @@ class Hike:
     to calculate an average for the entire hike.
     """
 
-    def __init__(self, name, segments):
+    def __init__(self, name: str, segments: List[Segment]):
         self.name = name
         self.segments = segments
 

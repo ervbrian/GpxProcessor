@@ -2,6 +2,9 @@ import os
 import xml.etree.ElementTree as ET
 
 from cached_property import cached_property
+from xml.etree.cElementTree import Element
+from os import PathLike
+from typing import List
 
 from utils.exceptions import ParseError
 from utils.hike import Point, Segment, Hike
@@ -31,23 +34,23 @@ class GpxImport:
         self.coordinates = self._populate_coordinates()
 
     @staticmethod
-    def import_gpx(filename):
+    def import_gpx(filename: PathLike):
         try:
             return ET.parse(filename)
         except Exception as e:
             raise ParseError(f"GPX file {filename} could not be parsed. {e}")
 
-    def fetch_heart_rate_extension(self, trkpt):
+    def fetch_heart_rate_extension(self, trkpt: Element) -> int:
         try:
             for gpx_extension in trkpt.findall(EXTENSIONS_ELEMENT):
                 for garmin_extension in gpx_extension.findall(f"{GARMIN_EXTENSIONS_ELEMENT}TrackPointExtension"):
                     heart_rate = garmin_extension.find(f"{GARMIN_EXTENSIONS_ELEMENT}hr").text
         except AttributeError:  # heart rate extension not present
-            return 0
+            heart_rate = 0
 
         return int(heart_rate)
 
-    def _populate_coordinates(self):
+    def _populate_coordinates(self) -> List[Point]:
         """
         Walk XML tree and fetch coordinate details logged as trkpt elements.
         Create Point object for each coordinate and append to coordinates list.

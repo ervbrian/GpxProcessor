@@ -1,8 +1,9 @@
-from jinja2 import Environment, FileSystemLoader
 import os
+from jinja2 import Environment, FileSystemLoader
+from sqlalchemy.orm.query import Query
 
 
-def render_html(hikes):
+def render_html(hikes: Query) -> None:
     """ Given a list of hikes, render an HTML report based on Jinja templates
 
     :param hikes: list of HikeDB objects
