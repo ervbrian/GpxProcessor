@@ -1,13 +1,14 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Column, Integer, String, Float
-from sqlalchemy.orm import sessionmaker
-from typing import List
-from sqlalchemy.orm.query import Query
+from sqlalchemy.ext.declarative import declarative_base, DeclarativeMeta  # type: ignore
+from sqlalchemy import create_engine, Column, Integer, String, Float  # type: ignore
+from sqlalchemy.orm import sessionmaker  # type: ignore
+from sqlalchemy.orm.query import Query  # type: ignore
+from typing import Any, List
 
-from utils.hike import Hike
+from utils.hike import Hike  # type: ignore
+
 
 database = "sqlite:///data/HikeDB.db"
-Base = declarative_base()
+Base: DeclarativeMeta = declarative_base()
 engine = create_engine(database, echo=False)
 Session = sessionmaker(bind=engine)
 
@@ -43,7 +44,7 @@ class HikeDB(Base):
     distance = Column(Float)
     ascent = Column(Float)
     descent = Column(Float)
-    duration = Column(String)
+    duration = Column(Float)
     speed = Column(Float)
     ascent_rate = Column(Float)
     average_heart_rate = Column(Integer)
@@ -59,7 +60,7 @@ class HikeDBClient:
         self.session = Session()
 
     @property
-    def entry_count(self):
+    def entry_count(self) -> Any:
         return self.show_all_hikes().count()
 
     def add_all(self, hike_list: List[HikeDB]):

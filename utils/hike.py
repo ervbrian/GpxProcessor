@@ -148,6 +148,6 @@ class Hike:
         return round(average_rate, 2)
 
     @property
-    def average_heart_rate(self) -> float:
+    def average_heart_rate(self) -> int:
         average_rate = sum(segment.average_heart_rate for segment in self.segments) / self.segment_count
         return round(average_rate)
