@@ -1,4 +1,3 @@
-from cached_property import cached_property
 from datetime import datetime
 from math import sin, cos, sqrt, radians, asin
 from typing import List
@@ -13,10 +12,10 @@ class Point:
         self.lon = lon
         self.elevation = elevation
         self.time = time
-        self.distance_from_start = 0
+        self.distance_from_start = 0.0
         self.heart_rate = heart_rate
 
-    def update_distance_from_start(self, distance: float):
+    def update_distance_from_start(self, distance: float) -> None:
         self.distance_from_start = distance
 
 
@@ -26,35 +25,35 @@ class Segment:
     """
 
     def __init__(self, points: List[Point]):
-        self.points = points
-        self.distance = 0
-        self.ascent = 0
-        self.descent = 0
-        self.ascent_rates = []
+        self.points: List[Point] = points
+        self.distance: float = 0.0
+        self.ascent: float = 0.0
+        self.descent: float = 0.0
+        self.ascent_rates: list = []
         self._calc_statistics()
 
-    @cached_property
+    @property
     def point_count(self):
         return len(self.points)
 
-    @cached_property
-    def duration(self):
+    @property
+    def duration(self) -> float:
         start = self.points[0].time
         end = self.points[-1].time
         elapsed = datetime.fromisoformat(end) - datetime.fromisoformat(start)
         return round(elapsed.seconds / 60)  # convert to minutes
 
-    @cached_property
-    def speed(self):
+    @property
+    def speed(self) -> float:
         return round(self.distance / self.duration * 60, 2)
 
-    @cached_property
-    def ascent_rate(self):
+    @property
+    def ascent_rate(self) -> float:
         average_rate = sum(self.ascent_rates) / len(self.ascent_rates)
         return round(average_rate, 2)
 
-    @cached_property
-    def average_heart_rate(self):
+    @property
+    def average_heart_rate(self) -> float:
         heart_rates = []
         for point in self.points:
             heart_rates.append(point.heart_rate)
@@ -116,39 +115,39 @@ class Hike:
     """
 
     def __init__(self, name: str, segments: List[Segment]):
-        self.name = name
-        self.segments = segments
+        self.name: str = name
+        self.segments: List[Segment] = segments
 
-    @cached_property
-    def segment_count(self):
+    @property
+    def segment_count(self) -> int:
         return len(self.segments)
 
-    @cached_property
-    def distance(self):
+    @property
+    def distance(self) -> float:
         return round(sum([segment.distance for segment in self.segments]), 2)
 
-    @cached_property
-    def ascent(self):
+    @property
+    def ascent(self) -> float:
         return round(sum([segment.ascent for segment in self.segments]), 2)
 
-    @cached_property
-    def descent(self):
+    @property
+    def descent(self) -> float:
         return round(sum([segment.descent for segment in self.segments]), 2)
 
-    @cached_property
-    def duration(self):
+    @property
+    def duration(self) -> float:
         return sum([segment.duration for segment in self.segments])
 
-    @cached_property
-    def speed(self):
+    @property
+    def speed(self) -> float:
         return sum([segment.speed for segment in self.segments]) / self.segment_count
 
-    @cached_property
-    def ascent_rate(self):
+    @property
+    def ascent_rate(self) -> float:
         average_rate = sum([segment.ascent_rate for segment in self.segments]) / self.segment_count
         return round(average_rate, 2)
 
-    @cached_property
-    def average_heart_rate(self):
+    @property
+    def average_heart_rate(self) -> float:
         average_rate = sum(segment.average_heart_rate for segment in self.segments) / self.segment_count
         return round(average_rate)
