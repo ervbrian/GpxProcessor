@@ -22,12 +22,14 @@ mkdir data
 ## Execution
 ```
 (GpxProcessor)$ python process.py -h
-usage: process.py [-h] [-p PATH] [-r]
+usage: process.py [-h] [-p PATH] [-r] [-c COMBINE [COMBINE ...]]
 
 optional arguments:
   -h, --help            show this help message and exit
   -p PATH, --path PATH  list of files to process
   -r, --render_only     render html only
+  -c COMBINE [COMBINE ...], --combine COMBINE [COMBINE ...]
+                        list of input files to combine
 ```
 
 ### Populated:
@@ -68,6 +70,17 @@ The example below contains output from an HTML render only execution and assumes
 ```
 (GpxProcessor)$ python process.py --render_only
 Generated HTML page: html/index.html
+```
+
+### Combine Multiple GPX Files
+```
+(GpxProcessor)$ python process.py -p data/ -c 20200619_Snow_Lake.GPX 20200619_Snow_Lake_Return.GPX
+Found 27 GPX files in path...
+Combining the following: ['20200619_Snow_Lake.GPX', '20200619_Snow_Lake_Return.GPX']
+Removed 20200619_Snow_Lake.GPX from processing in favor of 20200619_Snow_Lake.GPX_combined.GPX
+Removed 20200619_Snow_Lake_Return.GPX from processing in favor of 20200619_Snow_Lake.GPX_combined.GPX
+Processing 26 files after removing hikes already populated in HikeDB
+...
 ```
 
 ## Versioning
