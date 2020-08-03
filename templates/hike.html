@@ -55,5 +55,18 @@
           </tr>
         {% endfor %}
         </table>
+            <h2>Database Quick View</h2>
+        <table class="darkTable">
+            <tr>
+                <th>Hike Name</th>
+                <th>Coordinate Points</th>
+            </tr>
+            {% for hike in hikes %}
+            <tr>
+                <td>{{hike.name}}</td>
+                <td>{{coordinates[hike.name].count()}}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </body>
 </html>

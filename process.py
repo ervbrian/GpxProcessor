@@ -59,7 +59,9 @@ def main():
         update_db(client=client, hikes=hike_list)
         print(f"Total hikes stored in HikeDB database: {client.entry_count}")
 
-    render_html(hikes=client.show_all_hikes())
+    render_html(
+        hikes=client.show_all_hikes(),
+        coordinates={hike.name: client.show_all_points_for_hike(hike.name) for hike in client.show_all_hikes()})
     print("Generated HTML page: html/index.html")
 
 
